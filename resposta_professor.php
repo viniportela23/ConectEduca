@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $resposta_chatgpt = isset($_GET["resposta_chatgpt"]) ? $_GET["resposta_chatgpt"] : "";
             $disciplina = $_SESSION['cargo'];
 
-            echo "<h4>Resposta do Aluno:</h4>";
+            echo "<h4>Resposta do Professor:</h4>";
             echo "<p>$texto</p>";
 
             echo "<h4>Disciplina:</h4>";
