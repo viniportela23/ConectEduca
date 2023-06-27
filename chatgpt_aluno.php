@@ -33,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $result = json_decode($response, true);
         $resposta_chatgpt = $result['choices'][0]['text'];
 
-        // Redirecionar para a página "resposta.php" com os dados do formulário
-        header("Location: resposta.php?texto=" . urlencode($texto) . "&resposta_chatgpt=" . urlencode($resposta_chatgpt) . "&disciplina=" . urlencode($disciplina));
+        // Redirecionar para a página "resposta_aluno.php" com os dados do formulário
+        header("Location: resposta_aluno.php?texto=" . urlencode($texto) . "&resposta_chatgpt=" . urlencode($resposta_chatgpt) . "&disciplina=" . urlencode($disciplina));
         exit();
     } else {
         echo "<div class='jumbotron rounded card mt-4'>";
