@@ -1,0 +1,77 @@
+body{
+background-color: rgb(204, 221, 221);
+
+}
+
+.form{
+    width: 400px;
+    margin: auto;
+    padding-top: 10%;
+
+}
+
+.card{
+
+    box-shadow: 1px 1px 5px rgb(3, 94, 94);
+    background-color: white;
+    padding: 30px;
+    border-radius: 30px;
+
+}
+.card_top{
+    text-align: center;
+
+
+}
+
+.titulo{
+    color: rgb(6, 72, 75);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.texto1{
+    font-weight: bold
+    
+}
+.texto2 > label{
+    color: rgb(60, 67, 75);
+    width: 100%;
+    display: block;
+    
+}
+.texto2 > input{
+    border-radius: 5px;
+
+    
+}
+.texto2{
+    margin-bottom: 10px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.texto2 > button{
+    background-image: linear-gradient(to right, rgb(221, 231, 233), rgb(38, 160, 182));
+    border-radius: 30px;
+    text-align: center;
+    width: 100%;
+    padding: 15px;
+
+}
+.btn button:hover{
+    background-image: linear-gradient(to right, rgb(187, 216, 221), rgb(53, 170, 190));
+    
+
+}
+.alert {
+  margin-top: 10px;
+}
+.response-box {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.response-box[contenteditable="true"] {
+  min-height: 100px;
+}
