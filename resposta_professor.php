@@ -1,19 +1,22 @@
 <?php
+session_start();
+require_once('credenciais_professor.php');
+
+// Função para ler a resposta do arquivo resposta.txt
+function lerRespostaChatGPT() {
+    $resposta_chatgpt = file_get_contents("resposta.txt");
+    return $resposta_chatgpt;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $texto = isset($_GET["texto"]) ? $_GET["texto"] : "";
-    $resposta_chatgpt = isset($_GET["resposta_chatgpt"]) ? $_GET["resposta_chatgpt"] : "Sem resposta do ChatGPT";
+    $disciplina = isset($_GET["disciplina"]) ? $_GET["disciplina"] : "";
 
-
-    // Verificar se o cookie com o id_user está definido
-    session_start();
-    require_once('credenciais_professor.php');
-
-
-      if (isset($_SESSION['iduser']) && isset($_SESSION['cargo'])) {
+    // Verificar se o cookie com o id_user está definidolo
+    if (isset($_SESSION['iduser'])) {
         $id_user = $_SESSION['iduser'];
-        $disciplina = $_SESSION['cargo'];
 
-        // Conectar ao banco de dados
+        // Conectar ao banco de dados (você precisa implementar essa parte)
         $credenciais = parse_ini_file("credenciais_banco.txt");
         $host = $credenciais['host'];
         $username = $credenciais['username'];
@@ -25,18 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             die("Erro na conexão com o banco de dados: " . $conn->connect_error);
         }
 
-        // Inserir os dados na tabela "pesquisa"
+        // Inserir os dados na tabela "pesquisa" (você precisa implementar essa parte)
+        $resposta_chatgpt = lerRespostaChatGPT();
         $sql = "INSERT INTO pesquisa (pergunta, resposta, iduser, materia) VALUES ('$texto', '$resposta_chatgpt', '$id_user', '$disciplina')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Dados inseridos no banco de dados com sucesso!";
+            echo "Dados inseridos com sucesso no banco de dados.";
         } else {
-            echo "Ocorreu um erro ao inserir os dados no banco de dados.";
+            echo "Erro ao inserir os dados no banco de dados: " . $conn->error;
         }
 
         $conn->close();
     } else {
-        echo "ID do usuário não encontrado.";
+        echo "Cookie com o id_user não definido.";
     }
 }
 ?>
@@ -81,11 +85,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $resposta_chatgpt = isset($_GET["resposta_chatgpt"]) ? $_GET["resposta_chatgpt"] : "";
             $disciplina = $_SESSION['cargo'];
 
-            echo "<h4>Resposta do Professor:</h4>";
+            echo "<h4>Pergunta do Professor:</h4>";
             echo "<p>$texto</p>";
 
             echo "<h4>Disciplina:</h4>";
             echo "<p>$disciplina</p>";
+
+            $resposta_chatgpt = lerRespostaChatGPT();
+            
 
             if (!empty($resposta_chatgpt)) {
                 echo "<h4>Resposta do ChatGPT:</h4>";
