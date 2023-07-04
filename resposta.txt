@@ -1,0 +1,1 @@
+A idade de um aluno do quinto ano depende da idade em que o aluno entrou na escola. A idade mínima para entrar no quinto ano é de 10 ou 11 anos.
