@@ -4,44 +4,16 @@ require_once('credenciais_aluno.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $texto = $_POST["texto"];
-    $resposta_chatgpt = $_POST["resposta_chatgpt"];
     $disciplina = $_POST["disciplina"];
+    
+    // Salvar a pergunta no arquivo pergunta.txt
+    file_put_contents("pergunta.txt", $texto);
 
+    // Redirecionar para a página "resposta_aluno.php" com os dados do formulário
+    header("Location: resposta_aluno.php?texto=" . urlencode($texto) . "&disciplina=" . urlencode($disciplina));
+    sleep(3);
 
-    $chave_api = "SUA_CHAVE_KEY_AQUI";
-
-    $url = "https://api.openai.com/v1/engines/davinci/completions";
-    $data = array(
-        "prompt" => $texto,
-        "max_tokens" => 50
-    );
-    $headers = array(
-        "Content-Type: application/json",
-        "Authorization: Bearer " . $chave_api
-    );
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    if ($response) {
-        $result = json_decode($response, true);
-        $resposta_chatgpt = $result['choices'][0]['text'];
-
-        // Redirecionar para a página "resposta_aluno.php" com os dados do formulário
-        header("Location: resposta_aluno.php?texto=" . urlencode($texto) . "&resposta_chatgpt=" . urlencode($resposta_chatgpt) . "&disciplina=" . urlencode($disciplina));
-        exit();
-    } else {
-        echo "<div class='jumbotron rounded card mt-4'>";
-        echo "<h4>Erro:</h4>";
-        echo "<p>Não foi possível obter uma resposta no momento. Por favor, tente novamente mais tarde.</p>";
-        echo "</div>";
-    }
+    exit();
 }
 ?>
 
@@ -61,10 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="home_aluno.php">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Chat GPT</a>
+          <a class="nav-link" href="chatgpt_aluno.php">Chat GPT</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contato</a>
